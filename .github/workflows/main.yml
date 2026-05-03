@@ -1,70 +1,50 @@
-            - name: iOS Build Action
-  # You may pin to the exact commit or the version.
-  # uses: yukiarrr/ios-build-action@099d9f7b468abd4a33d027ea365a103ae9c546d6
-  uses: yukiarrr/ios-build-action@v1.12.0
-  with:
-    # Base64 encoded p12 key
-    p12-key-base64: # optional
-    # Base64 encoded certificate for the p12 key
-    p12-cer-base64: # optional
-    # Base64 encoded p12 file (key + cert)
-    p12-base64: # optional
-    # Base64 encoded mobileprovision file
-    mobileprovision-base64: # optional
-    # p12 key path
-    p12-key-path: # optional
-    # Certificate path for the p12 key
-    p12-cer-path: # optional
-    # p12 path (key + cert)
-    p12-path: # optional
-    # mobileprovision path
-    mobileprovision-path: # optional
-    # Project path
-    project-path: 
-    # For example, iOS Distribution
-    code-signing-identity: 
-    # Team id
-    team-id: 
-    # Workspace path
-    workspace-path: # optional, default is 
-    # Choose app-store, ad-hoc, package, enterprise, development, or developer-id
-    export-method: # optional, default is app-store
-    # For example, Debug, Release
-    configuration: # optional, default is Release
-    # Certificate password
-    certificate-password: # optional, default is 
-    # Output path of ipa
-    output-path: # optional, default is output.ipa
-    # Scheme
-    scheme: # optional, default is 
-    # Targets to be updated with mobileprovision, code signing identity, etc
-    update-targets: # optional, default is 
-    # Deprecated, use update-targets instead
-    disable-targets: # optional, default is 
-    # Path to an export options plist
-    export-options: # optional, default is 
-    # The SDK that should be used for building the application
-    build-sdk: # optional, default is 
-    # Use a custom destination for building the app
-    build-destination: # optional, default is 
-    # Path for Swift Package Manager dependencies
-    cloned-source-packages-path: # optional, default is 
-    # Path to your entitlements file
-    entitlements-file-path: # optional, default is 
-    # Increment the build number before building the application
-    increment-build-number: # optional, default is 
-    # Increment the version number of your project. Supports patch, minor, major or a specific version number.
-    increment-version-number: # optional, default is 
-    # Bundle identifier of the application.
-    bundle-identifier: # optional, default is 
-    # App Store Connect API Key ID
-    app-store-connect-api-key-id: # optional, default is 
-    # App Store Connect API Key Issuer ID
-    app-store-connect-api-key-issuer-id: # optional, default is 
-    # Base64 encoded App Store Connect API Key
-    app-store-connect-api-key-base64: # optional, default is 
-    # Build path
-    build-path: # optional, default is 
-    # Custom Keychain Name
-    custom-keychain-name: # optional, default is ios-build.keychain
-          
+name: BubbleTranslate
+options:
+  bundleIdPrefix: com.bubbletranslate
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "15.0"
+
+targets:
+  BubbleTranslate:
+    type: application
+    platform: iOS
+    deploymentTarget:
+      iOS: "15.0"
+    sources:
+      - path: BubbleTranslate/Sources
+        type: group
+        includes:
+          - "*.swift"
+      - path: BubbleTranslate/Resources
+        type: folder
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.bubbletranslate.app
+        PRODUCT_NAME: BubbleTranslate
+        EXECUTABLE_NAME: BubbleTranslate
+        INFOPLIST_FILE: BubbleTranslate/Info.plist
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
+        DEVELOPMENT_TEAM: ""
+        ENABLE_BITCODE: NO
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GCC_PREPROCESSOR_DEFINITIONS: ["$(inherited)"]
+        SWIFT_EMIT_LOC_STRINGS: YES
+        SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        LD_RUNPATH_SEARCH_PATHS: ["$(inherited)", "@executable_path/Frameworks"]
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SDKROOT)/Developer/Library/Frameworks"]
+        OTHER_LDFLAGS: ["$(inherited)", "-framework", "UIKit", "-framework", "Foundation", "-framework", "Vision", "-framework", "AVFoundation", "-framework", "CoreImage", "-framework", "ObjectiveC"]
+    entitlements:
+      path: BubbleTranslate/BubbleTranslate.entitlements
+    scheme:
+      testTargets:
+        - BubbleTranslate
+      configMappings:
+        Debug: Debug
+        Release: Release
